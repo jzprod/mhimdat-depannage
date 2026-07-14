@@ -105,8 +105,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .mh-header.is-stuck { background: rgba(12, 13, 14, 0.96); box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.9); }
 .mh-header__inner { display: flex; align-items: center; gap: 18px; padding-block: 12px; }
-.mh-brand { flex: none; }
-.mh-brand img { height: 44px; width: auto; }
+/* Light chip behind the logo so the dark artwork reads on the black header */
+.mh-brand { flex: none; display: inline-flex; align-items: center; padding: 7px 14px; border-radius: 12px; background: linear-gradient(180deg, #ffffff, #eef2f0); box-shadow: 0 6px 18px -10px rgba(0, 0, 0, 0.7), inset 0 0 0 1px rgba(0, 0, 0, 0.05); }
+.mh-brand img { height: 38px; width: auto; display: block; }
 .mh-nav { margin-left: auto; display: flex; gap: 26px; }
 .mh-nav a { font-weight: 600; font-size: 0.95rem; color: var(--mh-steel); transition: color 0.15s; }
 .mh-nav a:hover { color: #fff; }
@@ -254,7 +255,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------- Footer ---------- */
 .mh-footer { background: #08090a; border-top: 1px solid var(--mh-line); padding-top: 56px; }
 .mh-footer__grid { display: grid; grid-template-columns: 1.7fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 40px; }
-.mh-footer__brand img { height: 42px; width: auto; margin-bottom: 16px; }
+.mh-footer__brand img { height: 40px; width: auto; margin-bottom: 16px; padding: 8px 14px; border-radius: 12px; background: linear-gradient(180deg, #ffffff, #eef2f0); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05); }
 .mh-footer__brand p { color: var(--mh-steel); font-size: 0.95rem; max-width: 340px; }
 .mh-socials--foot { margin-top: 18px; }
 .mh-footer__col h3 { font-family: var(--mh-head); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.12em; color: #fff; margin-bottom: 14px; }
