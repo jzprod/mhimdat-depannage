@@ -331,10 +331,131 @@ ul { margin: 0; padding: 0; list-style: none; }
   body { padding-bottom: 74px; }
 }
 
+/* =========================================================
+   LANGUAGE SWITCHER (header)
+   ========================================================= */
+.mh-lang { position: relative; flex: none; }
+.mh-lang__btn {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+  background: rgba(255, 255, 255, 0.05); border: 1px solid var(--mh-line-strong);
+  color: #e6eaec; font-family: var(--mh-head); font-weight: 700; font-size: 0.86rem;
+  padding: 8px 12px; border-radius: 999px; transition: background 0.18s, border-color 0.18s;
+}
+.mh-lang__btn:hover { background: rgba(0, 144, 80, 0.16); border-color: rgba(0, 144, 80, 0.5); }
+.mh-lang__btn .mh-ico { width: 17px; height: 17px; opacity: 0.9; }
+.mh-lang__cur { letter-spacing: 0.04em; }
+.mh-lang__chev { width: 15px; height: 15px; fill: currentColor; opacity: 0.7; transition: transform 0.2s; }
+.mh-lang.is-open .mh-lang__chev { transform: rotate(180deg); }
+
+.mh-lang__menu {
+  position: absolute; top: calc(100% + 10px); right: 0; z-index: 70; min-width: 190px;
+  background: rgba(20, 23, 25, 0.98); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--mh-line-strong); border-radius: 14px; padding: 6px;
+  box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.8);
+  animation: mh-pop 0.16s ease;
+}
+@keyframes mh-pop { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.mh-lang__menu li { list-style: none; }
+.mh-lang__menu button {
+  display: flex; align-items: center; gap: 11px; width: 100%; cursor: pointer;
+  background: none; border: 0; color: #e6eaec; font-family: var(--mh-body); font-size: 0.96rem; font-weight: 500;
+  padding: 11px 13px; border-radius: 9px; text-align: start; transition: background 0.14s;
+}
+.mh-lang__menu button:hover { background: rgba(0, 144, 80, 0.16); }
+.mh-lang__menu button[aria-checked="true"] { color: #fff; background: rgba(0, 144, 80, 0.22); font-weight: 700; }
+.mh-lang__flag { font-size: 1.15rem; line-height: 1; }
+.mh-rtl .mh-lang__menu { right: auto; left: 0; }
+
+/* =========================================================
+   LANGUAGE MODAL (first visit) — elegant
+   ========================================================= */
+.mh-noscroll { overflow: hidden; }
+.mh-langmodal {
+  position: fixed; inset: 0; z-index: 120; display: grid; place-items: center; padding: 22px;
+  opacity: 0; pointer-events: none; transition: opacity 0.32s ease;
+}
+.mh-langmodal.is-open { opacity: 1; pointer-events: auto; }
+.mh-langmodal__backdrop {
+  position: absolute; inset: 0;
+  background: radial-gradient(120% 120% at 50% 0%, rgba(0, 144, 80, 0.16), transparent 55%), rgba(6, 8, 9, 0.82);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.mh-langmodal__card {
+  position: relative; z-index: 1; width: 100%; max-width: 460px; overflow: hidden;
+  background: linear-gradient(180deg, #191d20, #121517);
+  border: 1px solid var(--mh-line-strong); border-radius: 22px;
+  padding: 40px 34px 34px; text-align: center;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.85);
+  transform: translateY(18px) scale(0.97); opacity: 0; transition: transform 0.4s cubic-bezier(.2,.8,.2,1), opacity 0.4s ease;
+}
+.mh-langmodal.is-open .mh-langmodal__card { transform: none; opacity: 1; }
+.mh-langmodal__glow {
+  position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+  width: 320px; height: 220px; background: radial-gradient(circle, rgba(0, 144, 80, 0.4), transparent 70%);
+  filter: blur(10px); pointer-events: none;
+}
+.mh-langmodal__logo { height: 34px; width: auto; margin: 0 auto 18px; position: relative; }
+.mh-langmodal__eyebrow { color: var(--mh-emerald-bright); font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.72rem; margin: 0 0 8px; }
+.mh-langmodal__title { font-family: var(--mh-head); font-weight: 800; font-size: 1.5rem; margin: 0 0 24px; line-height: 1.25; }
+.mh-langmodal__title span { display: block; }
+.mh-langmodal__title span[lang="ar"] { font-size: 1.35rem; opacity: 0.92; margin-top: 2px; }
+.mh-langmodal__title span[lang="en"] { font-size: 1rem; color: var(--mh-steel); font-weight: 600; margin-top: 2px; }
+
+.mh-langmodal__opts { display: grid; gap: 12px; }
+.mh-langopt {
+  display: flex; align-items: center; gap: 15px; width: 100%; cursor: pointer; text-align: start;
+  background: linear-gradient(180deg, var(--mh-charcoal), var(--mh-charcoal-2));
+  border: 1px solid var(--mh-line); border-radius: 14px; padding: 15px 18px;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+.mh-langopt:hover { transform: translateY(-2px); border-color: rgba(0, 144, 80, 0.6); box-shadow: 0 16px 34px -22px rgba(0, 144, 80, 0.7); }
+.mh-langopt__flag { font-size: 1.7rem; line-height: 1; flex: none; }
+.mh-langopt__name { font-family: var(--mh-head); font-weight: 800; font-size: 1.08rem; color: #fff; }
+.mh-langopt__sub { color: var(--mh-steel); font-size: 0.82rem; margin-inline-start: auto; }
+.mh-langopt[dir="rtl"] { text-align: right; }
+
+/* =========================================================
+   RTL ADJUSTMENTS (Arabic)
+   ========================================================= */
+.mh-rtl body, .mh-rtl { text-align: right; }
+.mh-rtl .mh-topbar__inner,
+.mh-rtl .mh-header__inner,
+.mh-rtl .mh-hero__cta,
+.mh-rtl .mh-hero__trust,
+.mh-rtl .mh-feats li,
+.mh-rtl .mh-contact__row,
+.mh-rtl .mh-cta-band__inner { direction: rtl; }
+.mh-rtl .mh-nav { margin-left: 0; margin-right: auto; }
+.mh-rtl .mh-header__cta { margin-left: 0; margin-right: 8px; }
+.mh-rtl .mh-burger { margin-left: 0; margin-right: auto; }
+.mh-rtl .mh-kicker,
+.mh-rtl .mh-shead,
+.mh-rtl .mh-hero__sub { text-align: right; }
+.mh-rtl .mh-zone__list li { border-left: 0; border-right: 3px solid var(--mh-emerald); }
+.mh-rtl .mh-feats li { flex-direction: row; }
+.mh-rtl .mh-hero__tag { left: auto; right: 14px; }
+.mh-rtl .mh-hero__media::after { inset: -14px auto auto -14px; }
+/* keep phone numbers & the brand mark visually LTR */
+.mh-rtl [dir="ltr"] { direction: ltr; text-align: left; }
+
+@media (max-width: 980px) {
+  /* .mh-brand already has margin-right:auto, so the switcher + burger
+     group on the trailing edge. Just space them. */
+  .mh-lang { flex: none; }
+  .mh-burger { margin-left: 8px; }
+  .mh-rtl .mh-burger { margin-left: 0; margin-right: 8px; }
+}
+@media (max-width: 480px) {
+  .mh-langmodal__card { padding: 32px 22px 26px; }
+  .mh-langopt__sub { display: none; }
+  .mh-lang__btn { padding: 7px 10px; }
+}
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { animation: none !important; transition: none !important; }
   [data-mh-anim] { opacity: 1 !important; transform: none !important; }
   .mh-pulse { animation: none !important; }
+  .mh-langmodal, .mh-langmodal__card { transition: none !important; }
 }
