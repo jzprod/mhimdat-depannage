@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mhimdat-depannage.example.com/sitemap.xml

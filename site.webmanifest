@@ -1,0 +1,13 @@
+{
+  "name": "MHIMDAT Service Dépannage Marrakech",
+  "short_name": "MHIMDAT",
+  "description": "Dépannage, remorquage et assistance routière à Marrakech 24h/24 et 7j/7.",
+  "lang": "fr",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0d0e",
+  "theme_color": "#101010",
+  "icons": [
+    { "src": "assets/logo/mhimdat-symbol-transparent.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
