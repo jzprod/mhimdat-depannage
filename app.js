@@ -189,21 +189,26 @@
   /* ---- First-visit language modal ---- */
   var modal = document.getElementById("mh-langmodal");
 
+  var modalTimer = null;
   function openModal() {
     if (!modal) return;
+    if (modalTimer) { clearTimeout(modalTimer); modalTimer = null; }
     modal.hidden = false;
     // force reflow then add class for the transition
     void modal.offsetWidth;
     modal.classList.add("is-open");
-    document.body.classList.add("mh-noscroll");
+    root.classList.add("mh-noscroll");
   }
   function closeModal() {
     if (!modal) return;
     modal.classList.remove("is-open");
-    document.body.classList.remove("mh-noscroll");
-    var onEnd = function () { modal.hidden = true; modal.removeEventListener("transitionend", onEnd); };
-    if (reduceMotion) { modal.hidden = true; }
-    else modal.addEventListener("transitionend", onEnd);
+    root.classList.remove("mh-noscroll");
+    // Hide via a reliable timer, NOT transitionend — on some mobile/in-app
+    // browsers transitionend doesn't fire, which would leave the fixed
+    // full-screen overlay in the DOM and cause phantom scroll / whitespace.
+    if (modalTimer) clearTimeout(modalTimer);
+    var delay = reduceMotion ? 0 : 380;
+    modalTimer = setTimeout(function () { modal.hidden = true; modalTimer = null; }, delay);
   }
 
   if (modal) {

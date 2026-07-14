@@ -46,11 +46,17 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .mh-wrap { width: 100%; max-width: var(--mh-wrap); margin-inline: auto; padding-inline: 22px; }
 
+/* Visually-hidden skip link. Uses clip (not left:-9999px, which creates a
+   phantom horizontal scroll area / zoom-out bug on some mobile browsers). */
 .mh-skip {
-  position: absolute; left: -9999px; top: 0; z-index: 200;
+  position: absolute; top: 0; left: 0; z-index: 200;
+  width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%);
+  white-space: nowrap;
   background: var(--mh-emerald); color: #fff; padding: 10px 16px; border-radius: 0 0 8px 0;
 }
-.mh-skip:focus { left: 0; }
+.mh-skip:focus {
+  width: auto; height: auto; overflow: visible; clip: auto; clip-path: none;
+}
 
 :focus-visible { outline: 3px solid var(--mh-emerald-bright); outline-offset: 2px; border-radius: 6px; }
 
@@ -378,11 +384,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* =========================================================
    LANGUAGE MODAL (first visit) — elegant
    ========================================================= */
-.mh-noscroll { overflow: hidden; }
+/* lock scroll while the modal is open — applied to <html> so it holds on iOS */
+.mh-noscroll, .mh-noscroll body { overflow: hidden; height: 100%; }
 .mh-langmodal {
-  position: fixed; inset: 0; z-index: 120;
+  position: fixed; inset: 0; z-index: 120; width: 100%; max-width: 100vw;
   display: flex; align-items: center; justify-content: center;
-  padding: 20px; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 20px; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch;
   opacity: 0; pointer-events: none; transition: opacity 0.32s ease;
 }
 /* when the card is taller than the screen, don't center-clip it — let it scroll from the top */
